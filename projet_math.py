@@ -5,6 +5,8 @@ import random as rd
 import pylab
 
 ###VAR###
+
+#dictionnaire des traitements (KEY son nom : VALUE poucentage d'efficacité)
 traitements = {'traitement 1': 10, 'traitement 2' : 20, 'traitement 3' : 30, 'traitement 4' : 40, 'traitement 5' : 50,
         'traitement 6' : 60, 'traitement 7' : 70,'traitement 8' : 80, 'traitement 9' : 90, 'traitement 10' :10}
 data = [key for key in traitements.keys()]
