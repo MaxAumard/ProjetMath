@@ -57,16 +57,26 @@ def liste_en_proba():
     return probs;
 
 
-def affichage_proba(plt):
-    x = range(1,len(historique)+1)
+def affichage_proba(plt,r):
+    x = range(1,r+1)
+    for traitement in traitements.keys():
+        #Pourcentage de guerrison si patients>0 sinon 0 pour tout n nombre de patients traités
+        y = [ historique[n][0][traitement]\
+                for n in range(r)]
+        plt.plot(x,y,label=traitement)
+        plt.legend(loc="center")
+
+def affichage_total(plt,r):
+    x = range(1,r+1)
     y=[]
-    for n in range(len(historique)):
+    for n in range(r):
         guerris = 0
         for traitement in traitements.keys():
             guerris+=historique[n][0][traitement]
-        y.append(guerris/(n+1))
-    plt.plot(x,y,label="TOTAL")
-    plt.legend(loc="center")
+        y.append(guerris)
+    plt.plot(x,y,label="TOTAL",color='deeppink',linewidth=4)
+    plt.legend(loc="best")
+
 
 
 
@@ -78,7 +88,11 @@ probs = liste_en_proba()
 
 ###AFFICHAGE###
 
-affichage_proba(plt)
+for r in range(0,len(historique)):
+    plt.cla();
+    affichage_proba(plt,r)
+    affichage_total(plt,r)
+    plt.pause(0.0001)
 
 ###GRAPH###
 #plt.xlim(-1, 10)
