@@ -85,5 +85,5 @@ affichage_proba(plt)
 ###GRAPH###
 #plt.xlim(-1, 10)
 
-plt.show()
-plt.savefig('strat1.py.pdf')
+
+plt.savefig('strat1.pdf')

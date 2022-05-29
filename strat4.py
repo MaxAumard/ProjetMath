@@ -44,6 +44,8 @@ def affichage_proba(plt):
                 for n in range(len(history))]
         plt.plot(x,y,label=drugs[drug].name)
         plt.legend(loc="center")
+        plt.ylabel("Part des patients ayant été guéris par un traitement")
+        plt.xlabel("Nombre de patients")
 
 for drug in drugs:
     drug.give_cure()
