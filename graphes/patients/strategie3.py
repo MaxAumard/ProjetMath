@@ -66,3 +66,4 @@ affichage_proba(plt)
 #plt.xlim(-1, 10)
 
 plt.show()
+plt.savefig('strategie3.py.pdf')
