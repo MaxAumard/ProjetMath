@@ -31,19 +31,17 @@ K = len(drugs)
 epsilon = 0.1
 
 
-
 def affichage_proba(plt):
-    x = range(1,len(history)+1)
-    for drug in range(len(drugs)):
-        #Pourcentage de guerrison si patients>0 sinon 0 pour tout n nombre de patients traités
-        y = [ history[n][drug].patients\
-                if history[n][drug].patients>0\
-                else 0\
-                for n in range(len(history))]
-        plt.plot(x,y,label=drugs[drug].name)
-        plt.ylabel("Nombre de patients ayant reçu un traitement")
-        plt.xlabel("Nombre de patients")
-        plt.legend(loc="center")
+    x = range(1,len(history))
+    y = [[ history[n][drug].patients/n\
+            for n in x] for drug in range(len(drugs)) ]
+    print(y[0],x[0])
+    plt.stackplot(x,y,labels=[drug.name for drug in drugs])
+    plt.ylabel("Part des patients ayant reçu un traitement k")
+    plt.xlabel("Nombre de patients")
+    plt.legend(loc="center")
+    plt.ylim(0,1)
+
 
 for drug in drugs:
     drug.give_cure()
