@@ -3,7 +3,7 @@ import scipy.stats as stats
 import matplotlib.pyplot as plt
 import random as rd
 import copy
-import pylab
+colors=["#3454D1","#34D1BF","#D1345B","#3EC300","#FF1D15","#590925","#9B287B","#F3DE2C","#B0FF92","#DE6449"]
 
 ###VAR###
 
@@ -52,20 +52,20 @@ def application(nbr_tentative, fonction):
 
 def liste_en_proba():
     probs = [];
-    for traitement in traitements.keys():
+    for i,traitement in enumerate(traitements.keys()):
         probs.append(guerris[traitement]/patients[traitement])
     return probs;
 
 
 def affichage_proba(plt):
     x = range(1,len(historique)+1)
-    for traitement in traitements.keys():
+    for i,traitement in enumerate(traitements.keys()):
         #Pourcentage de guerrison si patients>0 sinon 0 pour tout n nombre de patients traités
         y = [ historique[n][0][traitement]/historique[n][1][traitement]\
                 if historique[n][1][traitement]>0\
                 else 0\
                 for n in range(len(historique))]
-        plt.plot(x,y,label=traitement)
+        plt.plot(x,y,label=traitement,color=colors[i])
         plt.ylabel("Part des patients ayant été guéris par un traitement")
         plt.xlabel("Nombre de patients")
         plt.legend(loc="center")
