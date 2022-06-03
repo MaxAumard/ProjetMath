@@ -5,10 +5,8 @@ import random as rd
 from math import sqrt,log
 from scipy.stats import beta
 import copy
+
 colors=["#3454D1","#34D1BF","#D1345B","#3EC300","#FF1D15","#590925","#9B287B","#F3DE2C","#B0FF92","#DE6449"]
-
-###VAR###
-
 class Drug:
     def __init__(self, name, effectiveness):
         self.name = name
@@ -33,7 +31,6 @@ K = len(drugs)
 epsilon = 0.1
 
 
-
 def affichage_proba(plt):
     x = range(1,len(history)+1)
     for drug in range(len(drugs)):
@@ -43,9 +40,18 @@ def affichage_proba(plt):
                 else 0\
                 for n in range(len(history))]
         plt.plot(x,y,label=drugs[drug].name,color=colors[drug])
-        plt.legend(loc="center")
         plt.ylabel("Part des patients ayant été guéris par un traitement")
         plt.xlabel("Nombre de patients")
+        plt.legend(loc="center")
+
+def affichage_proba2(plt):
+    x = range(1,len(history))
+    y = [[ history[n][drug].patients\
+            for n in x] for drug in range(len(drugs)) ]
+    plt.stackplot(x,y,labels=[drug.name for drug in drugs],colors=colors)
+    plt.ylabel("Nombre de patients ayant reçu un traitement k")
+    plt.xlabel("Nombre de patients")
+    plt.legend(loc="center")
 
 for drug in drugs:
     drug.give_cure()
@@ -53,8 +59,6 @@ for drug in drugs:
 
 for n in range(K+1,N+1):
     drug = max(drugs, key=lambda d: beta(1+d.cured,1+d.patients-d.cured).rvs())
-    if n%100==0:
-        print(n/N*100,"%",sep="")
     drug.give_cure()
     history.append(copy.deepcopy(drugs))
 
@@ -62,11 +66,9 @@ for n in range(K+1,N+1):
 
 
 ###AFFICHAGE###
-
 affichage_proba(plt)
-
-###GRAPH###
-#plt.xlim(-1, 10)
-
-
 plt.savefig('strat4.pdf')
+plt.figure().clear()
+affichage_proba2(plt)
+plt.savefig('strat4_patients.pdf')
+
