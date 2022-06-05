@@ -58,7 +58,7 @@ for drug in drugs:
     history.append(copy.deepcopy(drugs))
 
 for n in range(K+1,N+1):
-    drug = max(drugs, key=lambda d: d.cured/d.patients+sqrt(2*log(n)/d.patients)) if rd.random()>epsilon else rd.choice(drugs)
+    drug = max(drugs, key=lambda d: d.cured/d.patients+sqrt(2*log(n)/d.patients))
     drug.give_cure()
     history.append(copy.deepcopy(drugs))
 
